@@ -1,0 +1,59 @@
+package com.emma.pfe.service;
+
+import com.emma.pfe.domain.entity.Professeur;
+import com.emma.pfe.repository.ProfesseurRepo;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+
+import static java.lang.Boolean.*;
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+@Slf4j
+public class ProfesseurService {
+    private final ProfesseurRepo profRepo;
+
+    public Collection<Professeur> getAllProfesseur() {
+        return profRepo.findAll();
+    }
+
+    public Professeur getProfesseur(String code) {
+        return profRepo.findByCode(code);
+    }
+
+    public Professeur saveProfesseur( Professeur prof) {
+        Professeur professeur= getProfesseur(prof.getCode());
+        if (professeur != null) {
+            log.info("Professeur already exists");
+            throw new IllegalArgumentException("Professeur already exists");
+        }
+        log.info("Saving professeur");
+        return profRepo.save(prof);
+    }
+
+    public Professeur updateProfesseur(String code,Professeur prof) {
+        Professeur professeur = getProfesseur(code);
+        if (professeur == null) {
+            log.info("Professeur not found");
+            throw new IllegalArgumentException("Professeur not found");
+        }
+        log.info("Updating professeur");
+        professeur.setCode(prof.getCode());
+        professeur.setDepartement(prof.getDepartement());
+        return profRepo.save(prof);
+    }
+
+    public Boolean deleteProfesseur(String code) {
+        Professeur professeur = getProfesseur(code);
+        if (professeur != null) {
+            profRepo.delete(professeur);
+            return TRUE;
+        }
+        return FALSE;
+    }
+}

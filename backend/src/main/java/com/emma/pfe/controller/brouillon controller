@@ -1,0 +1,91 @@
+package com.emma.pfe.controller;
+
+import com.emma.pfe.domain.HttpResponse;
+import com.emma.pfe.domain.entity.Professeur;
+import com.emma.pfe.service.ProfesseurService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
+import static org.springframework.http.HttpStatus.*;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/professeur")
+public class ProfesseurController {
+    private final ProfesseurService profService;
+
+    @GetMapping("/liste")
+    public ResponseEntity<HttpResponse> listeProfesseur() {
+        return ResponseEntity.ok(
+                HttpResponse
+                        .builder()
+                        .timeStamp(LocalDateTime.now())
+                        .message("Liste des professeurs récupérés")
+                        .data(Map.of("professeurs",profService.getAllProfesseur()))
+                        .status(OK).statusCode(OK.value()).build()
+        );
+    }
+
+    @GetMapping("/find/{code}")
+    public ResponseEntity<HttpResponse> getProfesseur(@PathVariable("code") String code) {
+        try{
+            return ResponseEntity.ok(
+                    HttpResponse.builder().timeStamp(LocalDateTime.now())
+                            .message("Professeur récupéré")
+                            .data(Map.of("proffesseur",profService.getProfesseur(code)))
+                            .status(OK).statusCode(OK.value()).build()
+            );
+        }catch (IllegalArgumentException e){
+            throw new ResponseStatusException(NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @PostMapping("/ajouter")
+    public ResponseEntity<HttpResponse> ajouterProfesseur(@RequestBody Professeur prof) {
+        try{
+            return ResponseEntity.ok(
+                    HttpResponse.builder().timeStamp(LocalDateTime.now())
+                            .message("Professeur ajouté")
+                            .data(Map.of("proffesseur",profService.saveProfesseur(prof)))
+                            .status(CREATED).statusCode(CREATED.value()).build()
+            );
+        }catch (IllegalArgumentException e){
+            throw new ResponseStatusException(NO_CONTENT, e.getMessage());
+        }
+    }
+
+    @PutMapping("/update/{code}")
+    public ResponseEntity<HttpResponse> updateProfesseur(@PathVariable("code") String code, @RequestBody Map<String, Object> prof) {
+        try{
+            return ResponseEntity.ok(
+                    HttpResponse.builder().timeStamp(LocalDateTime.now())
+                            .message("Professeur mis à jour avec succès")
+                            .data(Map.of("proffesseur",profService.updateProfesseur(code, (Professeur) prof)))
+                            .status(OK).statusCode(OK.value()).build()
+            );
+        }catch (IllegalArgumentException e){
+            throw new ResponseStatusException(NOT_FOUND, e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete/{code}")
+    public ResponseEntity<HttpResponse> deleteProfesseur(@PathVariable("code") String code) {
+        try{
+            return ResponseEntity.ok(
+                    HttpResponse.builder().timeStamp(LocalDateTime.now())
+                            .message("Professeur supprimé")
+                            .data(Map.of("professeur",profService.deleteProfesseur(code)))
+                            .status(OK).statusCode(OK.value()).build()
+            );
+        }catch (IllegalArgumentException e){
+            throw new ResponseStatusException(NOT_FOUND, e.getMessage());
+        }
+    }
+
+}

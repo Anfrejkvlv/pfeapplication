@@ -1,0 +1,39 @@
+
+.form-control, .dataTable-input {
+  color: #69707a;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #c5ccd6;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.35rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+#carte{
+  width: 480px;
+}
+
+
+#example-form {
+  min-width: 150px;
+  max-width: 500px;
+  display: inline-flex;
+
+  margin-inside: 30%;
+}
+
+#inputin{
+  width: 380px;
+}
+
+.example-container mat-form-field + mat-form-field {
+  display: flex;
+
+}
+
+
+
+
+

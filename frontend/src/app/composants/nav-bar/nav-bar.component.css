@@ -1,0 +1,36 @@
+.mat-sidenav-container{
+    height: 89vh;
+}
+.mat-sidenav-content{
+    padding: 20px;
+}
+
+.btlg{
+
+}
+
+/* Ajoutez cette classe dans votre fichier CSS global ou composant */
+.flex {
+  display: flex;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.items-center {
+  align-items: center;
+}
+.ml-2 {
+  margin-left: 0.5rem;
+}
+.ml-4 {
+  margin-left: 1rem;
+}
+
+mat-toolbar{
+  background-color: rgb(202, 194, 194) !important;
+}
+
+mat-sidenav-container{
+  background-color: rgb(166, 166, 184);
+}
+

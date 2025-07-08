@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>Ajouter Utilisateur</h2>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="card-container12">
+      <!-- Première colonne -->
+      <mat-card class="mat-card12">
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Code</mat-label>
+            <input matInput formControlName="cin" placeholder="Ex. DER324T" required/>
+            <mat-error *ngIf="form.get('cin')?.invalid">
+              Code invalide (5-8 lettres majuscules)
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="nom" required>
+            <mat-error *ngIf="form.get('nom')?.hasError('required')">
+              Champ obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Prénom</mat-label>
+            <input matInput formControlName="prenom" required>
+            <mat-error *ngIf="form.get('prenom')?.hasError('required')">
+              Champ obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required>
+            <mat-error *ngIf="form.get('email')?.hasError('required')">
+              Champ obligatoire
+            </mat-error>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+
+      <!-- Deuxième colonne -->
+      <mat-card class="mat-card12">
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>Date de naissance</mat-label>
+            <input matInput formControlName="dateNaissance" [matDatepicker]="picker" required>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint align="end">Format: MM/JJ/AAAA</mat-hint>
+            <mat-error *ngIf="form.get('dateNaissance')?.hasError('required')">
+              Champ obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Sexe</mat-label>
+            <mat-select formControlName="sexe">
+              <mat-option value="Masculin">Masculin</mat-option>
+              <mat-option value="Féminin">Féminin</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('sexe')?.hasError('required')">
+              Champ obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Téléphone</mat-label>
+            <input matInput formControlName="telephone" required>
+            <mat-error *ngIf="form.get('telephone')?.hasError('required')">
+              Champ obligatoire
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option value="ROLE_ADMIN">ADMIN</mat-option>
+              <mat-option value="ROLE_GESTIONNAIRE">GESTIONNAIRE</mat-option>
+              <mat-option value="ROLE_JURY">JURY</mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('role')?.hasError('required')">
+              Selectionnez un rôle
+            </mat-error>
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Annuler</button>
+      <button mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid">Ajouter</button>
+    </mat-dialog-actions>
+  </form>
+</mat-dialog-content>
+

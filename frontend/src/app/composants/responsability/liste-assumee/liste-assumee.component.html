@@ -1,0 +1,156 @@
+<div class="container-fluid p-0">
+  <div class="row m-0">
+    <!-- Section Informations -->
+    <div class="col-12 col-md-6 p-3" id="infos">
+      <div class="bg-white p-3 rounded shadow-sm">
+        <h2 class="h5 mb-3 text-center text-md-start">
+          {{profes!.nom}} {{profes!.prenom}}
+        </h2>
+        <hr size="5px" color="blue" noshade="7">
+
+        <div class="table-responsive">
+          <table class="table table-sm table-user-information responsive-table">
+            <tbody>
+              <!-- Lignes d'information -->
+              <tr>
+                <td class="fw-bold">Responsabilite Actuelle</td>
+                <td class="text-primary"><span class="glyphicon glyphicon-asterisk text-primary">{{checkLastRespAss()===undefined?"Aucune":checkLastRespAss()}}</span></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Departement</td>
+                <td class="text-primary"><span class="glyphicon glyphicon-asterisk text-primary"></span>{{checkDeptId()===undefined?"Aucune": checkDeptId()}}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Grade Actuel</td>
+                <td class="text-primary"><span class="glyphicon glyphicon-asterisk text-primary">{{checkLastGrades()}}</span></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Email</td>
+                <td class="text-primary" ><span class="glyphicon glyphicon-asterisk text-primary"></span><a href="{{profes!.email}}">{{profes!.email}}</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Grades -->
+    <div class="col-12 col-md-6 p-3" id="grade">
+      <div class="h-100">
+        <mat-card class="h-100">
+          <button [hidden]="shared.isJury" (click)="openNewGrade(profes!.code)" mat-raised-button color="primary">Attribuer un nouveau</button>
+          <mat-card-header>
+            <mat-card-title class="h6">GRADES OBTENUS</mat-card-title>
+          </mat-card-header>
+
+          <mat-divider></mat-divider>
+
+          <mat-card-content class="Roman">
+              <mat-list>
+                @for (folder of gObtenus; track folder) {
+                  <mat-list-item>
+                    <mat-icon matListItemIcon>star</mat-icon>
+                    <div matListItemTitle>{{folder.grade}}</div>
+                    <div matListItemLine>{{folder.dataObtention| date}}</div>
+                  </mat-list-item>
+                }
+              </mat-list>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="btnd">
+  <mat-form-field>
+    <mat-label >Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  <button [hidden]="shared.isJury" style="height: 56px ; width: 200px;"  mat-raised-button (click)="openDialog(profes!.code)" color="primary">Ajouter </button>
+  <button style="height: 56px ; width: 450px; font-size: 18px;   margin-left: 10px;" mat-raised-button (click)="printReport()" color="primary">Exporter[Excel]
+  </button>
+  <button style="height: 56px ; width:420px; font-size: 18px;   margin-left: 10px;" mat-raised-button (click)="generatePdfRepport()" color="primary">Exporter[PDF]
+  </button>
+
+</div>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" id="grades" class="mat-elevation-z8" class="w-full border-collapse" matSort>
+
+    <!-- Code Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Code </th>
+      <td mat-cell *matCellDef="let row"> {{codeProf}} </td>
+    </ng-container>
+    <!-- Nom Column -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Nom </th>
+      <td mat-cell *matCellDef="let row"> {{profes!.nom}} </td>
+    </ng-container>
+
+    <!-- Prenom Column -->
+    <ng-container matColumnDef="prenom">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Prénom </th>
+      <td mat-cell *matCellDef="let row"> {{profes!.prenom}} </td>
+    </ng-container>
+    <!-- Responsabilite Column -->
+    <ng-container matColumnDef="titre">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Responsabilité </th>
+      <td mat-cell *matCellDef="let row"> {{row.titre==undefined?"Aucune":row.titre}} </td>
+    </ng-container>
+    <!-- Grade Column -->
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Grade </th>
+      <td mat-cell *matCellDef="let row"> {{row.grade}} </td>
+    </ng-container>
+    <!-- Departement Column -->
+    <ng-container matColumnDef="Département">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Département </th>
+      <td mat-cell *matCellDef="let row"> {{checkDeptId()}} </td>
+    </ng-container>
+    <!-- Date Debut Column -->
+    <ng-container matColumnDef="dateDebut">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Date début </th>
+      <td mat-cell *matCellDef="let row"> {{row.dateDebut}} </td>
+    </ng-container>
+    <!--Date Fin  Column -->
+    <ng-container matColumnDef="dateFin">
+      <th mat-header-cell *matHeaderCellDef class="header-custom" mat-sort-header> Date Fin </th>
+      <td mat-cell *matCellDef="let row"> {{row.dateFin==null?"Encours": row.dateFin}} </td>
+    </ng-container>
+
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell class="header-custom" style="text-align: center;" *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let row">
+        <div class="example-button-container">
+          <button class="btni" matTooltip = "Modifier" (click)="openDialogUptade(codeProf!,row.idResponsabilite,row.id)" mat-fab aria-label="Example icon button with a edit icon">
+            <mat-icon style="color: rgb(49, 85, 8) !important;">edit</mat-icon>
+          </button>
+          <button  class="btni" matTooltip = "Supprimer" color="warn" mat-fab aria-label="Example icon button with a delete icon" (click)="onDeleteDept(profes!.code,row.id)" >
+            <mat-icon style="color: rgb(216, 13, 13) !important;">delete</mat-icon>
+          </button>
+        </div>
+      </td>
+
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4" align="center" style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: 20px;">Aucune donnees trouver pour ce filtre "{{input.value}}"</td>    </tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+
+
+
+
+

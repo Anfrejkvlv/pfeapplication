@@ -1,0 +1,108 @@
+
+<div class="container-xl px-4 mt-4" style="align-items: center; margin-left: auto; height: auto; width: auto;">
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card mb-4" id="carte">
+        <div class="card-header">Modifier Professeur</div>
+        <div class="card-body">
+            <mat-dialog-content>
+
+
+              <form [formGroup]="updateForm" (ngSubmit)="onUpdateSubmit()">
+
+
+                    <div class="example-container">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Code</mat-label>
+                        <input  matInput formControlName="code" placeholder="Ex. DER324T" required/>
+                        <mat-error *ngIf="updateForm.get('code')?.invalid">
+                          Code invalide (5-8 lettres majuscules)
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field appearance="outline">
+                        <mat-label>Département</mat-label>
+                            <mat-select formControlName="idDepartement">
+                              <mat-option [value]="d.id" *ngFor="let d of departements">{{d.nom}}</mat-option>
+                            </mat-select>
+                        <mat-error *ngIf="updateForm.get('idDepartement')?.hasError('required')">
+                          Selectionnez un département
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>CIN</mat-label>
+                        <input matInput formControlName="cin" placeholder="Ex. DER324T" required/>
+                        <mat-error *ngIf="updateForm.get('cin')?.invalid">
+                          CIN invalide (5-8 lettres majuscules)
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Nom</mat-label>
+                        <input  matInput formControlName="nom" required>
+                        <mat-error *ngIf="updateForm.get('nom')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Prénom</mat-label>
+                        <input  matInput formControlName="prenom"  required>
+                        <mat-error *ngIf="updateForm.get('prenom')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input  matInput formControlName="email"  required>
+                        <mat-error *ngIf="updateForm.get('email')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Date de naissance</mat-label>
+                        <input  matInput formControlName="dateNaissance" [matDatepicker]="picker"  required>
+                          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                          <mat-hint align="end">Format: MM/JJ/AAAA</mat-hint>
+                        <mat-error *ngIf="updateForm.get('dateNaissance')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Sexe</mat-label>
+                            <mat-select formControlName="sexe">
+                              <mat-option value="Masculin">Masculin</mat-option>
+                              <mat-option value="Féminin">Féminin</mat-option>
+                            </mat-select>
+                        <mat-error *ngIf="updateForm.get('sexe')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Téléphone</mat-label>
+                        <input matInput formControlName="telephone"  required>
+                        <mat-error *ngIf="updateForm.get('telephone')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+                <mat-dialog-actions align="end">
+                  <button mat-button mat-dialog-close>Annuler</button>
+                  <button mat-raised-button
+                          color="primary"
+                          type="submit"
+                          [disabled]="updateForm.invalid">
+                    Enregister
+                  </button>
+                </mat-dialog-actions>
+              </form>
+            </mat-dialog-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

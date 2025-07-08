@@ -1,0 +1,41 @@
+
+<div class="container-xl px-4 mt-4" style="align-items: center; margin-left: auto; height: auto; width: auto;">
+  <div class="row">
+    <div class="col-xl-8">
+      <div class="card mb-4" id="carte">
+        <div class="card-header">Modifier Département</div>
+        <div class="card-body">
+            <mat-dialog-content>
+              <form [formGroup]="updateForm" (ngSubmit)="onUpdateSubmit()">
+                <mat-form-field id="inputin" appearance="outline">
+                  <mat-label>Nom</mat-label>
+                  <input  matInput formControlName="nom"  required>
+                  <mat-error *ngIf="updateForm.get('nom')?.hasError('required')">
+                    Champ obligatoire
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field id="inputin" appearance="outline">
+                  <mat-label>Code</mat-label>
+                  <input  matInput formControlName="code"  required>
+                  <mat-error *ngIf="updateForm.get('code')?.invalid">
+                    Code invalide (2-5 lettres majuscules)
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-dialog-actions align="end">
+                  <button mat-button mat-dialog-close>Annuler</button>
+                  <button mat-raised-button
+                          color="primary"
+                          type="submit"
+                          [disabled]="updateForm.invalid">
+                    Enregister
+                  </button>
+                </mat-dialog-actions>
+              </form>
+            </mat-dialog-content>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

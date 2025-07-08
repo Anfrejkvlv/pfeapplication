@@ -1,0 +1,58 @@
+    <div class="container h-100">
+    		<div class="row h-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+
+						<div class="text-center mt-4">
+							<h1 class="h2">Bienvenue</h1>
+							<p class="lead">
+								Connectez-vous, s'il vous plait avec vos identifiants
+							</p>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+									<div class="text-center">
+										<img src="https://previews.123rf.com/images/bsd555/bsd5552007/bsd555200701656/152490934-university-black-glyph-icon-higher-education-student-lifestyle-silhouette-symbol-on-white-space.jpg" alt="Logo FST" class="img-fluid rounded-circle" width="160px">
+									</div>
+									<form [formGroup]="form" (ngSubmit)="onLogin()">
+										<div class="form-group">
+                      <mat-form-field id="inputin" appearance="outline" >
+                        <mat-label>Email</mat-label>
+                        <input type="email"  matInput formControlName="username"  required>
+                        <mat-error *ngIf="form.get('username')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+                      <mat-form-field id="inputin" appearance="outline">
+                        <mat-label>Mot de Passe</mat-label>
+                        <input type="password"  matInput formControlName="password" required>
+                        <mat-error *ngIf="form.get('username')?.hasError('required')">
+                          Champ obligatoire
+                        </mat-error>
+                      </mat-form-field>
+                        <a [routerLink]="['/forgot']" routerLinkActive="router-link-active" >Mot de passe oublié?</a>
+										</div>
+										<div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary px-4" [disabled]="form.invalid || showLoading">
+                          SE CONNECTER
+                          <!--
+                          <span *ngIf="!showLoading">SE CONNECTER</span>
+                          <span *ngIf="showLoading">
+                          <span  class="spinner-border spinner-border-sm" aria-hidden="true">
+                          </span><span  role="status">Loading...</span>
+                          </span>-->
+                          </button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+

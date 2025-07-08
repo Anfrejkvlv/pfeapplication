@@ -1,0 +1,5 @@
+export enum Role{
+  ADMIN='ROLE_ADMIN',
+  GESTIONNAIRE='ROLE_GESTIONNAIRE',
+  JURY='ROLE_JURY'
+}

@@ -1,0 +1,44 @@
+body{
+    background-color: #DCDCDC;
+    margin-top:20px;
+    width: 85%;
+}
+.card {
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e5e9f2;
+    border-radius: .2rem;
+}
+
+#example-form {
+  min-width: 150px;
+  max-width: 500px;
+  display: inline-flex;
+
+
+  margin-inside: 30%;
+}
+
+#inputin{
+  width: 100%;
+  display: inline-flex;
+  padding-bottom: 1%;
+  padding-top: 3%;
+}
+
+.example-container mat-form-field + mat-form-field {
+  display: flex;
+
+}
