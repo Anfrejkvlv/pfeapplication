@@ -25,7 +25,7 @@ phases:
       - npm --version
 
       - echo "=== Pré-téléchargement des dépendances Maven ==="
-      - cd backend
+      - cd backend/
       - mvn dependency:resolve -q || echo "Échec du téléchargement des dépendances"
       - cd ..
 
