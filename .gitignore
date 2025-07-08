@@ -1,1 +1,5 @@
 /frontend/node_modules/
+/brouillon
+backend/src/main/java/com/emma/pfe/controller/brouillon controller
+backend/src/main/java/com/emma/pfe/domain/bouilon
+backend/src/main/java/com/emma/pfe/service/brouillon service
