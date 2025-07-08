@@ -4,9 +4,9 @@ env:
   variables:
     AWS_ACCOUNT_ID: "581483106272"
     AWS_REGION: "eu-north-1"
-    REPO_BACKEND: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/pfe-backend"
-    REPO_FRONTEND: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/pfe-frontend"
-    REPO_NGINX: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/pfe-nginx"
+    REPO_BACKEND: "aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 581483106272.dkr.ecr.eu-north-1.amazonaws.com"
+    REPO_FRONTEND: "aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 581483106272.dkr.ecr.eu-north-1.amazonaws.com"
+    REPO_NGINX: "aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 581483106272.dkr.ecr.eu-north-1.amazonaws.com"
 
 phases:
   pre_build:
