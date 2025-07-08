@@ -43,23 +43,13 @@ phases:
       - ls -la
 
       - echo "=== Vérification du fichier pom.xml ==="
-      - if [ -f pom.xml ]; then echo "pom.xml trouvé"; else echo "pom.xml MANQUANT"; fi
+      - if [ -f pom.xml ]; then echo "pom.xml trouvé"; cat pom.xml; else echo "pom.xml MANQUANT"; fi
 
       - echo "=== Version de Maven ==="
       - mvn --version
 
-      - echo "=== Compilation Maven avec logs détaillés ==="
-      - mvn clean package -X -e || {
-        echo "=== ÉCHEC DE LA COMPILATION MAVEN ==="
-        echo "Contenu du répertoire après échec:"
-        ls -la
-        if [ -d target ]; then
-        echo "Contenu du répertoire target:"
-        ls -la target/
-        fi
-        echo "=== Dernières lignes des logs Maven ==="
-        exit 1
-        }
+      - echo "=== Compilation Maven simple ==="
+      - mvn clean package
 
       - echo "=== Vérification des artifacts générés ==="
       - ls -la target/
