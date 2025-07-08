@@ -66,7 +66,7 @@ phases:
       - echo "=== Build frontend ==="
       - cd frontend
       - npm install --force
-      - npm run build --configuration production
+      - npm run build -- --configuration production
       - cd ..
 
       - echo "=== Build image frontend ==="
