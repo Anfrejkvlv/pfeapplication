@@ -7,6 +7,11 @@ env:
     REPO_BACKEND: "581483106272.dkr.ecr.eu-north-1.amazonaws.com/pfe-backend"
     REPO_FRONTEND: "581483106272.dkr.ecr.eu-north-1.amazonaws.com/pfe-frontend"
     REPO_NGINX: "581483106272.dkr.ecr.eu-north-1.amazonaws.com/pfe-nginx"
+install:
+  runtime-versions:
+    java: corretto21
+    maven: 3.9
+
 
 phases:
   pre_build:
