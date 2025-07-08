@@ -49,7 +49,7 @@ phases:
       - mvn --version
 
       - echo "=== Compilation Maven simple ==="
-      - mvn clean package
+      - mvn --quiet install
 
       - echo "=== Vérification des artifacts générés ==="
       - ls -la target/
