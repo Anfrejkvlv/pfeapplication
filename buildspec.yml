@@ -58,8 +58,10 @@ phases:
       - cd ..
 
       - echo "=== Build image backend ==="
+      - cd backend
       - docker build -f Dockerfile -t $REPO_BACKEND:latest .
       - docker tag $REPO_BACKEND:latest $REPO_BACKEND:$IMAGE_TAG
+      - cd ..
 
       - echo "=== Build frontend ==="
       - cd frontend
@@ -68,7 +70,7 @@ phases:
       - cd ..
 
       - echo "=== Build image frontend ==="
-      - docker build -f frontend/Dockerfile -t $REPO_FRONTEND:latest frontend/
+      - docker build -f /frontend/Dockerfile -t $REPO_FRONTEND:latest frontend/
       - docker tag $REPO_FRONTEND:latest $REPO_FRONTEND:$IMAGE_TAG
 
       - echo "=== Build image nginx ==="
