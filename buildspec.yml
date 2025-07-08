@@ -24,7 +24,7 @@ phases:
   build:
     commands:
       - echo "Build backend"
-      - cd backend && mvn -B clean package -DskipTests
+      - cd backend && mvn clean package -DskipTests
       - echo "Build image backend"
       - docker build -f Dockerfile -t $REPO_BACKEND:latest .
       - docker tag $REPO_BACKEND:latest $REPO_BACKEND:$IMAGE_TAG
